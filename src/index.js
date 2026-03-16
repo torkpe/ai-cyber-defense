@@ -7,7 +7,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const session = require("express-session");
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 const geoip = require("geoip-lite");
 
 const { collection, ThreatLog } = require("./mongodb");
@@ -16,9 +16,16 @@ const { createModel, trainModel, predict, predictFutureThreat } = require("./mlM
 const app = express();
 
 /* ============================
-   EMAIL (RESEND)
+   EMAIL (MAILTRAP)
 ============================ */
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+    host: "live.smtp.mailtrap.io",
+    port: 587,
+    auth: {
+        user: "api",
+        pass: process.env.MAILTRAP_API_TOKEN
+    }
+});
 
 /* ============================
    MIDDLEWARE
@@ -155,7 +162,7 @@ app.post("/signup", async (req, res) => {
 
         const verificationUrl = `${req.protocol}://${req.get("host")}/verify-email?token=${token}`;
 
-        await resend.emails.send({
+        await transporter.sendMail({
             from: process.env.EMAIL_FROM,
             to: email,
             subject: "Verify your email",
@@ -239,7 +246,7 @@ app.post("/login", async (req, res) => {
 
             const resetUrl = `${req.protocol}://${req.get("host")}/reset-password?token=${token}`;
 
-            await resend.emails.send({
+            await transporter.sendMail({
                 from: process.env.EMAIL_FROM,
                 to: user.email,
                 subject: "Account Login Alert",
