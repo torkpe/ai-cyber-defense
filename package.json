@@ -1,0 +1,25 @@
+{
+  "name": "ai-cyber-defense",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
+    "@tensorflow/tfjs": "^4.22.0",
+    "bcrypt": "^6.0.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.3.1",
+    "ejs": "^3.0.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "geoip-lite": "^2.0.0",
+    "hbs": "^4.2.0",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.2.1",
+    "nodemailer": "^8.0.1",
+    "nodemon": "^1.0.2",
+    "resend": "^6.9.2"
+  }
+}

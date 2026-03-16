@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Cyber Defense Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>AI-Driven Predictive Cyber Defense Framework</h1>
+
+    <canvas id="threatChart" width="800" height="400"></canvas>
+
+    <script>
+        fetch("/api/threat-trend")
+        .then(res => res.json())
+        .then(data => {
+
+            const labels = data.map(d => d._id);
+            const total = data.map(d => d.totalThreats);
+            const high = data.map(d => d.highRisk);
+
+            new Chart(document.getElementById("threatChart"), {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Total Threats",
+                            data: total,
+                            borderColor: "blue"
+                        },
+                        {
+                            label: "High Risk Threats",
+                            data: high,
+                            borderColor: "red"
+                        }
+                    ]
+                }
+            });
+        });
+    </script>
+</body>
+</html>

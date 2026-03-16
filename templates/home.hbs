@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliDefender | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --brand-purple: #6f42c1;
+            --hover-purple: #59359a;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--brand-purple) !important;
+            letter-spacing: -0.5px;
+        }
+
+        .header-links .nav-link {
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .header-links .nav-link:hover {
+            color: var(--brand-purple);
+            background-color: rgba(111, 66, 193, 0.08);
+        }
+
+        .text-purple {
+            color: var(--brand-purple);
+        }
+
+               .container-home {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('./image/download (9).jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-brand {
+            background-color: var(--brand-purple);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.2s;
+        }
+
+        .btn-brand:hover {
+            background-color: var(--hover-purple);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Section: About Us */
+        .transition-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .transition-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-white sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">IntelliDefender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="navbar-nav header-links">
+                    <a class="nav-link active" href="#home">Home</a>
+                    <a class="nav-link" href="#about">About-us</a>
+                    <a class="nav-link" href="#contact">Contact-us</a>
+                    <a class="nav-link" href="./notification.hbs">Notifications</a>
+                    {{#if user}}
+    <span class="nav-link fw-bold text-purple">Welcome, {{user.fullname}}</span>
+{{else}}
+    <a class="btn btn-outline-primary ms-lg-3 mt-2 mt-lg-0"
+       style="border-color: var(--brand-purple); color: var(--brand-purple);" href="./login">Login</a>
+{{/if}}
+                 
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="container-home">
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold mb-3">Welcome to IntelliDefender</h1>
+            <p class="lead mb-5 opacity-90">Your central hub for managing security insights and alerts.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="./signup" class="btn btn-brand shadow px-4 rounded-5">Get Started</a>
+                <a href="#about" class="btn btn-outline-light px-4 rounded-5">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-us bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-purple">About Us</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <p class="lead text-muted">
+                            IntelliDefender is a cutting-edge security dashboard designed to provide real-time insights
+                            and alerts for your digital assets.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 transition-hover">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3 text-purple">
+                                <i data-lucide="bell" class="w-10 h-10"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Real-Time Alerts</h5>
+                            <p class="card-text text-muted">Stay informed with instant notifications about potential
+                                security threats and vulnerabilities.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 transition-hover">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3 text-purple">
+                                <i data-lucide="shield-check" class="w-10 h-10"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Threat Analysis</h5>
+                            <p class="card-text text-muted">Our AI-driven engine analyzes patterns to predict and
+                                neutralize risks before they impact your network.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 transition-hover">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3 text-purple">
+                                <i data-lucide="lock" class="w-10 h-10"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Data Protection</h5>
+                            <p class="card-text text-muted">Industry-standard encryption and privacy protocols ensure
+                                your sensitive information remains safe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 p-5 rounded-5 text-white shadow-lg"
+                style="background: linear-gradient(135deg, var(--brand-purple), #4e2296);">
+                <div class="row align-items-center text-center text-md-start">
+                    <div class="col-md-8">
+                        <h3 class="fw-bold">Securing the Future of Tech</h3>
+                        <p class="mb-0 opacity-75">Join over 5,000+ companies who trust IntelliDefender daily.</p>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                        <button class="btn btn-light btn-lg fw-bold text-purple px-4 rounded-pill">Our
+                            Methodology</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="py-5 bg-white">
+        <div class="container py-4">
+            <h2 class="text-center fw-bold text-purple mb-5">Contact Us</h2>
+
+            <div class="row g-5 align-items-stretch">
+                <div class="col-lg-6">
+                    <div class="p-4 bg-light rounded-4 shadow-sm h-100">
+                        <h4 class="fw-bold mb-4">Send us a Message</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Full Name</label>
+                                <input type="text" class="form-control border-0 shadow-sm p-3"
+                                    placeholder="Enter your name">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Email Address</label>
+                                <input type="email" class="form-control border-0 shadow-sm p-3"
+                                    placeholder="name@example.com">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Message</label>
+                                <textarea class="form-control border-0 shadow-sm p-3" rows="5"
+                                    placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-brand w-100 py-3 shadow">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="h-100 rounded-4 overflow-hidden shadow-sm border">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1982.8239732634282!2d36.82194667619487!3d-1.2920656999999990!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10dfb5d6b8b5%3A0x5e4c6b8e4e6f8e0!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                            width="100%" height="100%" style="border:0; min-height: 400px;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{#if user}}
+<section class="py-4 bg-white">
+    <div class="container text-center">
+        <a href="/logout" 
+           class="btn btn-outline-danger px-4 rounded-pill fw-bold shadow-sm">
+            Logout
+        </a>
+    </div>
+</section>
+{{/if}}
+
+    <footer class="py-4 text-center text-muted border-top bg-white">
+        <small>&copy; 2024 IntelliDefender. All rights reserved.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
