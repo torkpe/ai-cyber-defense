@@ -7,7 +7,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const session = require("express-session");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 const geoip = require("geoip-lite");
 
 const { collection, ThreatLog } = require("./mongodb");
@@ -16,15 +16,9 @@ const { createModel, trainModel, predict, predictFutureThreat } = require("./mlM
 const app = express();
 
 /* ============================
-   EMAIL TRANSPORTER
+   EMAIL (RESEND)
 ============================ */
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS // Gmail app password
-    }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 /* ============================
    MIDDLEWARE
@@ -161,8 +155,8 @@ app.post("/signup", async (req, res) => {
 
         const verificationUrl = `${req.protocol}://${req.get("host")}/verify-email?token=${token}`;
 
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+        await resend.emails.send({
+            from: process.env.EMAIL_FROM,
             to: email,
             subject: "Verify your email",
             html: `
@@ -245,8 +239,8 @@ app.post("/login", async (req, res) => {
 
             const resetUrl = `${req.protocol}://${req.get("host")}/reset-password?token=${token}`;
 
-            await transporter.sendMail({
-                from: process.env.EMAIL_USER,
+            await resend.emails.send({
+                from: process.env.EMAIL_FROM,
                 to: user.email,
                 subject: "Account Login Alert",
                 html: `
